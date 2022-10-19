@@ -1,0 +1,65 @@
+
+* {
+    box-sizing: border-box;
+}
+.wrapper {
+    display: flex;
+height: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: aquamarine;
+margin: 5px;
+}
+.menu {
+    display: flex;
+}
+.btn_start, .btn_stop, .btn_results, .btn_save {
+    width: 150px;
+    height: 30px;
+    background: #b1b3bb;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+.playing_field {
+    display: grid;
+    gap: 5px;
+  grid-template-columns: repeat(8, 10vh);
+      grid-template-rows: repeat(8, 10vh);
+      border: 10px solid gold;
+      border-radius: 5px;
+     margin-top: 20px;
+     box-shadow: 0 2px 8px rgba(0,0,0,0.5); 
+}
+.number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #ffbf94;
+    border: 2px solid rgb(26, 25, 22);
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    .field_size {
+        display: flex;
+    
+    }
+    .size {
+        display: flex;
+        width: 100px;
+        height: 30px;
+        justify-content: center;
+        align-items: center;
+        background: #b1b3bb;
+        margin: 15px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        cursor: pointer; 
+
+    }
