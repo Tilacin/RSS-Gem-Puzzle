@@ -9,6 +9,7 @@ body {
 .menu {
   display: flex;
 }
+.time,
 .counter,
 .btn_start,
 .btn_stop,

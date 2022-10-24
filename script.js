@@ -21,9 +21,12 @@ const field_size = document.querySelector(".field_size");
 document.body.insertAdjacentHTML(
   "afterbegin",
   `<div class="menu">
-    <div class="counter">counter</div>
+  <form name=MyForm class ="time">
+  <input name=stopwatch size=5 value="00:00:00" disabled>
+</form>
     <botton class="btn_save">Save</botton>
     <botton class="btn_results">Results</botton>
+    <div class="counter">move</div>
 </div>`
 );
 
@@ -67,7 +70,7 @@ function move(index) {
     return number.value === number.top * 4 + number.left;
   });
   if (isVictory) {
-    alert("ВЫ ВЫИГРАЛИ");
+    alert("Ура! Вы решили головоломку за ##: ## и N ходов!");
   }
 }
 //замешиваем массив
@@ -162,7 +165,7 @@ function eightRows() {
       return number.value === number.top * 8 + number.left;
     });
     if (isVictory) {
-      alert("ВЫ ВЫИГРАЛИ");
+      alert("Ура! Вы решили головоломку за ##: ## и N ходов!");
     }
   }
 
@@ -207,6 +210,8 @@ function eightRows() {
   }
   count = 0
   counterMove ()
+  ClearСlock()
+  StartStop()
 }
 
 const size8 = document.querySelector(".size8");
@@ -251,7 +256,7 @@ function four() {
       return number.value === number.top * 4 + number.left;
     });
     if (isVictory) {
-      alert("ВЫ ВЫИГРАЛИ");
+      alert("Ура! Вы решили головоломку за ##: ## и N ходов!");
     }
   }
   //замешиваем массив
@@ -306,6 +311,8 @@ function four() {
   }
   count = 0
   counterMove ()
+  ClearСlock()
+  StartStop()
 }
 const size4 = document.querySelector(".size4");
 size4.addEventListener("click", four);
@@ -349,7 +356,7 @@ function threeRows() {
       return number.value === number.top * 3 + number.left;
     });
     if (isVictory) {
-      alert("ВЫ ВЫИГРАЛИ");
+      alert("Ура! Вы решили головоломку за ##: ## и N ходов!");
     }
   }
 
@@ -388,6 +395,8 @@ function threeRows() {
   }
   count = 0
   counterMove ()
+  ClearСlock()
+  StartStop()
 }
 
 const size3 = document.querySelector(".size3");
@@ -432,7 +441,7 @@ function sixRows() {
       return number.value === number.top * 6 + number.left;
     });
     if (isVictory) {
-      alert("ВЫ ВЫИГРАЛИ");
+      alert("Ура! Вы решили головоломку за ##: ## и N ходов!");
     }
   }
 
@@ -477,6 +486,8 @@ function sixRows() {
   }
   count = 0
   counterMove ()
+  ClearСlock()
+  StartStop()
 }
 const size6 = document.querySelector(".size6");
 size6.addEventListener("click", sixRows);
@@ -521,7 +532,7 @@ function sevenRows() {
       return number.value === number.top * 7 + number.left;
     });
     if (isVictory) {
-      alert("ВЫ ВЫИГРАЛИ");
+      alert("Ура! Вы решили головоломку за ##: ## и N ходов!");
     }
   }
 
@@ -566,6 +577,8 @@ function sevenRows() {
   }
   count = 0
   counterMove ()
+  ClearСlock()
+  StartStop()
 }
 
 const size7 = document.querySelector(".size7");
@@ -610,7 +623,7 @@ function fiveRows() {
       return number.value === number.top * 7 + number.left;
     });
     if (isVictory) {
-      alert("ВЫ ВЫИГРАЛИ");
+      alert("Ура! Вы решили головоломку за ##: ## и N ходов!");
     }
   }
 
@@ -655,13 +668,15 @@ function fiveRows() {
   }
   count = 0
     counterMove ()
+    ClearСlock()
+  StartStop()
 }
 
 
 const size5 = document.querySelector(".size5");
 size5.addEventListener("click", fiveRows);
 
-//const counter = document.querySelector(".counter");
+//счётчик ходов
 
 let count = 0
 function counterMove () {
@@ -674,3 +689,110 @@ function counterMove () {
   });
   }
   counterMove ()
+
+  window.onload = () => {
+    StartStop();
+  }
+  
+  //объявляем переменные
+  var base = 60;
+  var clocktimer, dateObj, dh, dm, ds, ms;
+  var readout = '';
+  var h = 1,
+    m = 1,
+    tm = 1,
+    s = 0,
+    ts = 0,
+    ms = 0,
+    init = 0;
+  
+  //функция для очистки поля
+  function ClearСlock() {
+    clearTimeout(clocktimer);
+    h = 1;
+    m = 1;
+    tm = 1;
+    s = 0;
+    ts = 0;
+    ms = 0;
+    init = 0;
+    readout = '00:00:00';
+    document.MyForm.stopwatch.value = readout;
+  }
+  
+  //функция для старта секундомера
+  function StartTIME() {
+    var cdateObj = new Date();
+    var t = (cdateObj.getTime() - dateObj.getTime()) - (s * 1000);
+    if (t > 999) {
+      s++;
+    }
+    if (s >= (m * base)) {
+      ts = 0;
+      m++;
+    } else {
+      ts = parseInt((ms / 100) + s);
+      if (ts >= base) {
+        ts = ts - ((m - 1) * base);
+      }
+    }
+    if (m > (h * base)) {
+      tm = 1;
+      h++;
+    } else {
+      tm = parseInt((ms / 100) + m);
+      if (tm >= base) {
+        tm = tm - ((h - 1) * base);
+      }
+    }
+    ms = Math.round(t / 10);
+    if (ms > 99) {
+      ms = 0;
+    }
+    if (ms == 0) {
+      ms = '00';
+    }
+    if (ms > 0 && ms <= 9) {
+      ms = '0' + ms;
+    }
+    if (ts > 0) {
+      ds = ts;
+      if (ts < 10) {
+        ds = '0' + ts;
+      }
+    } else {
+      ds = '00';
+    }
+    dm = tm - 1;
+    if (dm > 0) {
+      if (dm < 10) {
+        dm = '0' + dm;
+      }
+    } else {
+      dm = '00';
+    }
+    dh = h - 1;
+    if (dh > 0) {
+      if (dh < 10) {
+        dh = '0' + dh;
+      }
+    } else {
+      dh = '00';
+    }
+    readout = dh + ':' + dm + ':' + ds;
+    document.MyForm.stopwatch.value = readout;
+    clocktimer = setTimeout("StartTIME()", 1);
+  }
+  
+  //Функция запуска и остановки
+  function StartStop() {
+    if (init == 0) {
+      ClearСlock();
+      dateObj = new Date();
+      StartTIME();
+      init = 1;
+    } else {
+      clearTimeout(clocktimer);
+      init = 0;
+    }
+  }
