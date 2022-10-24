@@ -21,8 +21,7 @@ const field_size = document.querySelector(".field_size");
 document.body.insertAdjacentHTML(
   "afterbegin",
   `<div class="menu">
-  <botton class="btn_start">Start</botton>
-    <botton class="btn_stop">Stop</botton>
+    <div class="counter">counter</div>
     <botton class="btn_save">Save</botton>
     <botton class="btn_results">Results</botton>
 </div>`
@@ -30,10 +29,10 @@ document.body.insertAdjacentHTML(
 
 const start = document.querySelector(".btn_start");
 const stop = document.querySelector(".btn_stop");
-//вешаем обработчик на кнопку стоп
-stop.addEventListener("click", function () {
-  alert("Эту кнопку, по заданию, реализовывать не нужно");
-});
+const counter = document.querySelector(".counter");
+
+
+
 
 let size = 100;
 //координаты нулевой ячейки
@@ -119,11 +118,13 @@ for (let i = 1; i <= 15; i++) {
   number.addEventListener("click", () => {
     move(i);
   });
+ 
 }
 
 ///////////////////  8x8  /////////////////////////////////
 var numbers = document.getElementsByClassName("number");
 function eightRows() {
+  counter.textContent = 0
   playing.innerHTML = "";
   playing.style.width = "400px";
   playing.style.height = "400px";
@@ -204,7 +205,8 @@ function eightRows() {
     element.style.height = "50px";
     element.style.fontSize = "20px";
   }
-  
+  count = 0
+  counterMove ()
 }
 
 const size8 = document.querySelector(".size8");
@@ -212,6 +214,7 @@ size8.addEventListener("click", eightRows);
 
 ////////////////////////  4x4  /////////////////////////////
 function four() {
+  counter.textContent = 0
   playing.innerHTML = "";
   playing.style.width = "400px";
   playing.style.height = "400px";
@@ -301,11 +304,14 @@ function four() {
     });
   
   }
+  count = 0
+  counterMove ()
 }
 const size4 = document.querySelector(".size4");
 size4.addEventListener("click", four);
 ////////////////////////////  3x3  /////////////////////////////
 function threeRows() {
+  counter.textContent = 0
   playing.innerHTML = "";
   playing.style.width = "300px";
   playing.style.height = "300px";
@@ -380,19 +386,15 @@ function threeRows() {
       move(i);
     });
   }
-  /*for (let i = 0; i < numbers.length; i++) {
-    let element = numbers[i];
-    element.style.width = "50px";
-    element.style.height = "50px";
-    element.style.fontSize = "20px";
-  }
-  */
+  count = 0
+  counterMove ()
 }
 
 const size3 = document.querySelector(".size3");
 size3.addEventListener("click", threeRows);
 /////////////  6x6  ///////////////
 function sixRows() {
+  counter.textContent = 0
   playing.innerHTML = "";
   playing.style.width = "300px";
   playing.style.height = "300px";
@@ -473,12 +475,15 @@ function sixRows() {
     element.style.height = "50px";
     element.style.fontSize = "20px";
   }
+  count = 0
+  counterMove ()
 }
 const size6 = document.querySelector(".size6");
 size6.addEventListener("click", sixRows);
 ///////////  7x7  //////////////////////
 
 function sevenRows() {
+  counter.textContent = 0
   playing.innerHTML = "";
   playing.style.width = "350px";
   playing.style.height = "350px";
@@ -559,12 +564,15 @@ function sevenRows() {
     element.style.height = "50px";
     element.style.fontSize = "20px";
   }
+  count = 0
+  counterMove ()
 }
 
 const size7 = document.querySelector(".size7");
 size7.addEventListener("click", sevenRows);
 //////////////  5x5  //////////////////////////
 function fiveRows() {
+  counter.textContent = 0
   playing.innerHTML = "";
   playing.style.width = "350px";
   playing.style.height = "350px";
@@ -645,9 +653,24 @@ function fiveRows() {
     element.style.height = "50px";
     element.style.fontSize = "20px";
   }
-  
+  count = 0
+    counterMove ()
 }
 
 
 const size5 = document.querySelector(".size5");
 size5.addEventListener("click", fiveRows);
+
+//const counter = document.querySelector(".counter");
+
+let count = 0
+function counterMove () {
+  document.querySelectorAll(".number").forEach(function(element) {
+    
+      element.addEventListener("click", function() {
+      counter.innerHTML = 'moves:'+' '+(count = count + 1)
+    });
+  
+  });
+  }
+  counterMove ()
